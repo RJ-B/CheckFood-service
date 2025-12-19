@@ -1,28 +1,53 @@
 package com.checkfood.checkfoodservice.application.service.payment;
 
-import com.checkfood.checkfoodservice.application.entity.payment.Payment;
+import com.checkfood.checkfoodservice.application.dto.request.payment.PaymentCallbackRequestDto;
+import com.checkfood.checkfoodservice.application.dto.request.payment.PaymentInitiateRequestDto;
+import com.checkfood.checkfoodservice.application.dto.response.payment.PaymentResponseDto;
+
+import java.util.UUID;
 
 /**
- * Service pro zpracování plateb.
+ * Aplikační service pro práci s agregátem Payment.
  *
- * Zodpovědnosti:
- * - inicializace platby
- * - zpracování výsledku platby
+ * <br><br>
+ * Payment reprezentuje platební transakci
+ * spojenou s konkrétní objednávkou.
  *
- * Používá:
- * - PaymentRepository
- * - OrderRepository
- * - externí payment client (Stripe)
- *
- * Cross-cutting:
- * - audit
- * - monitoring (úspěšnost plateb)
- * - event (PaymentSucceededEvent, PaymentFailedEvent)
+ * <br><br>
+ * Service zodpovídá za:
+ * <br>
+ * - inicializaci platby,
+ * <br>
+ * - zpracování platebního callbacku,
+ * <br>
+ * - čtení stavu platby.
  */
 public interface PaymentService {
 
-    // TODO:
-    // - initiatePayment(...)
-    // - handlePaymentSuccess(...)
-    // - handlePaymentFailure(...)
+    /**
+     * Inicializuje novou platbu k objednávce.
+     *
+     * @param request vstupní data platby
+     * @return informace o vytvořené platbě
+     */
+    PaymentResponseDto initiatePayment(PaymentInitiateRequestDto request);
+
+    /**
+     * Zpracuje callback z platební brány.
+     *
+     * <br><br>
+     * Metoda aktualizuje stav platby
+     * na základě odpovědi externí služby.
+     *
+     * @param request callback data
+     */
+    void handlePaymentCallback(PaymentCallbackRequestDto request);
+
+    /**
+     * Vrátí detail platby.
+     *
+     * @param paymentId identifikátor platby
+     * @return detail platby
+     */
+    PaymentResponseDto getPaymentDetail(UUID paymentId);
 }

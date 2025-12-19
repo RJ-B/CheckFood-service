@@ -1,12 +1,31 @@
 package com.checkfood.checkfoodservice.application.dto.response.restaurant;
 
-/**
- * DTO detailu restaurace.
- */
-public class RestaurantResponseDto {
+import java.time.OffsetDateTime;
+import java.util.UUID;
 
-    // TODO: id
-    // TODO: name
-    // TODO: address
-    // TODO: status
+/**
+ * DTO reprezentující detail restaurace. <br><br>
+ *
+ * Slouží jako výstupní model
+ * pro API a administrační rozhraní.
+ *
+ * Neobsahuje validační logiku.
+ */
+public record RestaurantResponseDto(
+
+        UUID id,
+
+        String name,
+
+        String description,
+
+        String status,
+
+        boolean active,
+
+        OffsetDateTime createdAt,
+
+        OffsetDateTime updatedAt
+
+) {
 }

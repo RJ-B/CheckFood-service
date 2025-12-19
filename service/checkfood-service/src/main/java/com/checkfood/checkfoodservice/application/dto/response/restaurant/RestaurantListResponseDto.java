@@ -1,11 +1,21 @@
 package com.checkfood.checkfoodservice.application.dto.response.restaurant;
 
-import java.util.List;
+import java.util.UUID;
 
 /**
- * DTO seznamu restaurací.
+ * DTO pro listování restaurací. <br><br>
+ *
+ * Optimalizováno pro:
+ * - rychlou odezvu <br>
+ * - minimální objem přenášených dat <br>
  */
-public class RestaurantListResponseDto {
+public record RestaurantListResponseDto(
 
-    // TODO: List<RestaurantResponseDto> restaurants
+        UUID id,
+
+        String name,
+
+        boolean active
+
+) {
 }
